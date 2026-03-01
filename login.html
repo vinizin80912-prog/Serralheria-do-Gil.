@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login • Serralheria do Gil</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
+  background:#0b0b0b;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+.login-box{
+  background:#111;
+  border:2px solid #d4af37;
+  border-radius:18px;
+  padding:40px 30px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(212,175,55,0.3);
+  animation:fadeIn 0.8s ease;
+}
+
+h1{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+p{
+  color:#aaa;
+  margin-bottom:25px;
+}
+
+.login-btn{
+  background:linear-gradient(90deg,#d4af37,#a57c1b);
+  color:#000;
+  font-weight:bold;
+  border:none;
+  border-radius:12px;
+  padding:14px 20px;
+  cursor:pointer;
+  font-size:16px;
+  transition:.3s;
+}
+
+.login-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(212,175,55,.6);
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1; transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <h1>Serralheria do Gil</h1>
+  <p>Acesso exclusivo</p>
+  <button id="loginBtn" class="login-btn"><i class="fab fa-google"></i> Entrar com Google</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC3S-rA3fIDUlT5jKZXsFOB-6OQyuj6y68",
+  authDomain: "serralheria-do-gil.firebaseapp.com",
+  projectId: "serralheria-do-gil",
+  storageBucket: "serralheria-do-gil.firebasestorage.app",
+  messagingSenderId: "267882427773",
+  appId: "1:267882427773:web:bf1689a6adda79f3334814"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const loginBtn = document.getElementById("loginBtn");
+
+loginBtn.onclick = async () => {
+  try{
+    await signInWithPopup(auth, provider);
+    // Redireciona pro app principal
+    window.location.href="app.html";
+  }catch(err){
+    alert("Erro no login: "+err.message);
+  }
+}
+</script>
+
+</body>
+</html>
